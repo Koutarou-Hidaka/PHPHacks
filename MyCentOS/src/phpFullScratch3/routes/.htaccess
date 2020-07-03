@@ -1,6 +1,0 @@
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteCond %{REQEST_FILENAME} !-d
-    RewriteCond %{REQEST_FILENAME} !-f
-    RewriteRule ^(.*)$ web.php?url=$1 [QSA,l]
-</IfModule>
