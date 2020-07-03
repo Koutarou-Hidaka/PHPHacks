@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/docks":{"guestpath":"/home/vagrant/docks","hostpath":"/Users/mintppa/phpHacks/docker/Docks","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/mintppa/phpHacks/docker","disabled":false,"__vagrantfile":true}}}

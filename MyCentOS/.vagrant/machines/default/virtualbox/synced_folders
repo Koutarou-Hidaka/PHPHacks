@@ -1,0 +1,1 @@
+{"virtualbox":{"/var/www/html":{"guestpath":"/var/www/html","hostpath":"/Users/mintppa/phpHacks/MyCentOS/src","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/mintppa/phpHacks/MyCentOS","disabled":false,"__vagrantfile":true}}}
