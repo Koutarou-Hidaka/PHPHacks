@@ -6,26 +6,26 @@ services: #以下にコンテナの記述
     ports: #webコンテナ内の80番ポートに接続
       - 80:80
     privileged: true #privileged(特権)・・・ファイルのアクセス権に関わるもの
-    links:
-        - db
+    # links: #dbコンテナと連携させる
+    #   - db
     volumes: #vagtrantで言うsynced_folderの事。ファイルを共有する設定
       - "./:/var/www/html" #現在のディレクトリ(コンテナ内)のhtmlと共有
-      - "./apache-php/apache.conf:/etc/httpd/conf/httpd.conf" #apache.confが修正さてた時にコンテナ内に反映されるように共有化させる
+      # - "./apache-php/apache.conf:/etc/httpd/conf/httpd.conf" #apache.confが修正さてた時にコンテナ内に反映されるように共有化させる
     container_name: "apache-php" #コンテナの名前を設定
-  db:
-    image: mysql:5.7
-    environment:
-         - MYSQL_ROOT_PASSWORD=root
-    container_name: "mysql5.7"
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    links:
-        - db
-    ports:
-        - 8080:80
-    environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOST=db
-      - PMA_USER=root
-      - PMA_PASSWORD=root
-    container_name: "phpmyadmin-la" ####111111
+  # db:
+  #   image: mysql:5.7
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=root
+  #   container_name: "mysql5.7"
+  # phpmyadmin: #dbを管理する
+  #   image: phpmyadmin/phpmyadmin:latest
+  #   links: #dbコンテナと連携させる
+  #     - db
+  #   ports:
+  #     - 8080:80
+  #   environment:
+  #     - PMA_ARBITRARY=1 #PMA・・・php my adminのこと
+  #     - PMA_HOST=db #15行目のdbコンテナのこと
+  #     - PMA_USER=root
+  #     - PMA_PASSWORD=root
+  #   container_name: "phpmyadmin-la"
