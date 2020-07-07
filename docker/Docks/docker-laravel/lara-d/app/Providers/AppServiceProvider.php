@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \Schema::defaultStringLeng(191); #mysqlの最大文字数を設定している
     }
 
     /**
