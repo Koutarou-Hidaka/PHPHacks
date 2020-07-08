@@ -42,4 +42,4 @@ switch ($params[0]){
     case "destroy":
         $postsController->destroy($params[1]);
     break;
-}##
+}###
