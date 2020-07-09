@@ -12,6 +12,12 @@
                 <h5 class="mb-4">
                     編集画面
                 </h5>
+
+                <h5 class = "mb-4 text-danger">
+                    <?php foreach($error as $alert):?>
+                        <?php echo $alert."<br>";?>
+                    <?php endforeach;?>
+                </h5>
                 <form method="POST" action=<?php echo "/update/".$posts["id"];?>>
                     <fieldset>
                         <div class="form-group">
@@ -22,7 +28,7 @@
                                 id="title"
                                 name="title"
                                 class="form-control"
-                                value=<?php echo $posts["title"];?>
+                                value="<?php echo $posts["title"];?>"
                                 type="text"
                             >
                         </div>
@@ -40,7 +46,7 @@
                         </div>
 
                         <div>
-                            <a class="btn btn-secondary"href="/show">
+                            <a class="btn btn-secondary"href=<?php echo "/show/".$posts["id"];?>>
                                 キャンセル
                             </a>
                             <button type="submit" class="btn btn-primary">

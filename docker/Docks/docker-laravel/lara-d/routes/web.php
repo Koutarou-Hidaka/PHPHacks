@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+
+# HTTPのgetリクエストが飛ばされた時の処理
+Route::get('/','PostController@index')->name('top');
+# '/'一番上にアクセスされた時にPostControllerのindexに処理を割り振る
+# nameはニックネームみたいなもの、これで'/'でも'top'でも呼び出せるようになった
+

@@ -22,7 +22,7 @@ class Post {
     }
 
     protected function validation($data_title, $data_body){
-        $error = array();
+        $error = array(); #$errorに空の配列を入れている
         
         if (empty($data_title) || ctype_space($data_title)){//ctype_space・・・空白やタブなどの空文字
             $error[] = "タイトルを入力してください。";
@@ -68,6 +68,7 @@ class Post {
                 $sql = 'INSERT INTO posts(title, body) VALUES(:title, :body)';//:(title, :body)プレースフォルダ・・・実際の内容を後から挿入するために、とりあえず仮に確保した場所
 
                 $stmt  = $dbh->prepare($sql);
+                 //値の置き換え bindValue ($パラメータID, $バインドする値 [, $PDOデータ型定数] )
                 $stmt->bindValue(':title', $post['title'], PDO::PARAM_STR);
                 $stmt->bindValue(':body', $post['body'], PDO::PARAM_STR);
                 $stmt->execute();
@@ -110,27 +111,39 @@ class Post {
     }
 
     public function update($article_id){
-        $dbh = $this->db_access();
-        // echo __LINE__."<br>";
-        // var_dump($article_id);die;
-        try{
-            $dbh->beginTransaction();//以下の処理を一連の処理とまとめて、この間($dbh-comit()が完了するまで)にエラーが起きたらエラーを吐く
-            
-            $sql = 'UPDATE posts SET title= :title, body = :body WHERE id= :id';//:(title, :body)プレースフォルダ・・・実際の内容を後から挿入するために、とりあえず仮に確保した場所
+        $post = array(
+            "title" => $_POST['title'],
+            "body" => $_POST['body'],
+            "id"  => $article_id,   
+        );
 
-            $stmt  = $dbh->prepare($sql);
-            $stmt->bindValue(':title', $_POST['title'], PDO::PARAM_STR);
-            $stmt->bindValue(':body', $_POST['body'], PDO::PARAM_STR);
-            $stmt->bindValue(':id', $article_id, PDO::PARAM_INT);
-            $stmt->execute();
+        $error = $this->validation($post['title'], $post['body']);
 
-            $dbh->commit();
-        } catch(PDOException $Exception) {//引数・・・なんのエラーをキャッチするのか
-            $stmt->rollback();
+        if (count($error)){
+            //
+        }else{
+
+            $dbh = $this->db_access();
+            // echo __LINE__."<br>";
+            // var_dump($article_id);die;
+            try{
+                $dbh->beginTransaction();//以下の処理を一連の処理とまとめて、この間($dbh-comit()が完了するまで)にエラーが起きたらエラーを吐く
+                
+                $sql = 'UPDATE posts SET title= :title, body = :body WHERE id= :id';//:(title, :body)プレースフォルダ・・・実際の内容を後から挿入するために、とりあえず仮に確保した場所
+
+                $stmt  = $dbh->prepare($sql);
+                $stmt->bindValue(':title', $post['title'], PDO::PARAM_STR);
+                $stmt->bindValue(':body', $post['body'], PDO::PARAM_STR);
+                $stmt->bindValue(':id', $article_id, PDO::PARAM_INT);
+                $stmt->execute();
+
+                $dbh->commit();
+            } catch(PDOException $Exception) {//引数・・・なんのエラーをキャッチするのか
+                $stmt->rollback();
+            }
         }
-
         
-        $result = array($_POST['title'],$_POST['body']);
+        $result = array($post, $error);
 
         return $result;
     }

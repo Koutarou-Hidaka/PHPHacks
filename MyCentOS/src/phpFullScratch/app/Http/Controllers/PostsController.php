@@ -70,7 +70,7 @@ class PostsController{
         $result = $postmodel->edit($article_id);
 
         $posts = $result[0];
-
+        
         include($this->views."posts/edit.php");
 
     }
@@ -83,10 +83,11 @@ class PostsController{
         $postmodel  = new Post();
         $result = $postmodel->update($article_id);
 
-        // $posts = $result[0];
+        $posts = $result[0];
+        // var_dump($posts);die;
+        $error = $result[1];
 
         include($this->views."posts/edit.php");
-
     }
 
     public function destroy($article_id){

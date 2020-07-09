@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <p><?php echo $post["body"];?></p>
 
-                        <a class="card-link" href=<?php echo "show/".$post["id"];?>>
+                        <a class="card-link" href=<?php echo "/show/".$post["id"];?>>
                             詳細をみる
                         </a>
                     </div>
